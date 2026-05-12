@@ -12,15 +12,15 @@ const userSchema = new mongoose.Schema({
     },
     role: { 
         type: String, 
-        enum: ['user', 'admin'], // Đây là cốt lõi của RBAC (Phân quyền)
+        enum: ['user', 'admin'], // Core of RBAC (Role-Based Access Control)
         default: 'user' 
     },
     twoFactorSecret: { 
-        type: String // Dùng để lưu mã bí mật tạo ra mã QR cho Google Authenticator
+        type: String // Used to store the secret key for Google Authenticator QR code generation
     },
     isTwoFactorEnabled: { 
         type: Boolean, 
-        default: false // Mặc định là chưa bật 2FA
+        default: false // Default is 2FA disabled
     }
 }, { timestamps: true });
 

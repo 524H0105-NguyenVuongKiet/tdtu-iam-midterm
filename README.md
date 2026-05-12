@@ -1,31 +1,29 @@
 # TDTU IAM SYSTEM - MASTERPIECE LIQUID GLASS EDITION (2026)
 
-Hệ thống Quản lý Định danh và Truy cập (IAM) phiên bản cao cấp.
-Thiết kế dựa trên ngôn ngữ Human Interface - iOS 26 Liquid Glass.
-
+Identity and Access Management (IAM) System.
+Designed based on the Human Interface Guidelines - iOS 26 Liquid Glass.
 
 ---
 
-### 1. TÍNH NĂNG NỔI BẬT
+### 1. KEY FEATURES
 
-#### 🎨 GIAO DIỆN & TRẢI NGHIỆM (UI/UX)
-- Liquid Glass Architecture: Hiệu ứng kính lỏng, Blur cực sâu và Mesh Gradient chuyển động.
-- Retina Clarity System: Độ tương phản cao, đảm bảo văn bản rõ nét trên cả Light và Dark Mode.
-- Apple Squircle Design: Bo góc 50px chuẩn hình học Apple cho toàn bộ thẻ Card và nút bấm.
-- Multi-Device Responsive: Tự động tối ưu giao diện, ẩn sidebar và thu nhỏ tiêu đề khi xem trên Mobile/Tablet.
+#### 🎨 UI/UX DESIGN
+- Liquid Glass Architecture: Liquid glass effect, ultra-deep blur, and animated mesh gradients.
+- Retina Clarity System: High contrast, ensuring crisp and readable text in both Light and Dark Modes.
+- Apple Squircle Design: 50px geometric Apple-standard border radius for all cards and buttons.
+- Multi-Device Responsive: Auto-optimizes the interface, hides the sidebar, and scales down headings on Mobile/Tablet devices.
 
-#### 🛡️ CƠ CHẾ BẢO MẬT (SECURITY)
-- Multi-Factor Authentication (2FA): Xác thực qua Google Authenticator bằng mã QR.
-- Google OAuth2 Integration: Đăng nhập nhanh với tài khoản Google, nút bấm Pill-shape tự động thích ứng theme.
-- Hardened Password Recovery: Quy trình khôi phục mật khẩu 3 bước, bắt buộc xác thực mã PIN trước khi đổi pass.
+#### 🛡️ SECURITY MECHANISMS
+- Multi-Factor Authentication (2FA): Authentication via Google Authenticator using QR codes.
+- Google OAuth2 Integration: Quick sign-in with Google, featuring theme-adaptive pill-shaped buttons.
+- Hardened Password Recovery: 3-step password recovery process, requiring mandatory PIN verification before allowing a password reset.
 - Smart Input Validation:
-  + Chỉ chấp nhận định dạng @gmail.com.
-  + Mã OTP/PIN bắt buộc đúng 6 chữ số mới cho xác thực.
-- JWT Stateless Auth: Quản lý phiên làm việc bằng Token bảo mật.
+  + OTP/PIN must be exactly 6 digits to proceed with authentication.
+- JWT Stateless Auth: Session management using secure JSON Web Tokens.
 
 ---
 
-### 2. CÔNG NGHỆ SỬ DỤNG (TECH STACK)
+### 2. TECH STACK
 
 - Frontend: HTML5, CSS3 (Liquid Glass Logic), JavaScript ES6+.
 - Backend: Node.js, Express.js.
@@ -34,42 +32,42 @@ Thiết kế dựa trên ngôn ngữ Human Interface - iOS 26 Liquid Glass.
 
 ---
 
-### 3. HƯỚNG DẪN CÀI ĐẶT
+### 3. INSTALLATION GUIDE
 
-#### Bước 1: Cấu hình file .env
-Tạo file .env tại thư mục gốc và dán các thông số sau:
+#### Step 1: Configure the .env file
+Create a `.env` file in the root directory and paste the following parameters:
 PORT=5000
 MONGODB_URI=your_mongodb_connection_string
 JWT_SECRET=your_secret_key
 GOOGLE_CLIENT_ID=410410827263-antql5c3aq2jtq67rgd3mj2ma58b7kop.apps.googleusercontent.com
 
-#### Bước 2: Cài đặt thư viện
-Gõ lệnh: npm install
+#### Step 2: Install Dependencies
+Run the command: `npm install`
 
-#### Bước 3: Chạy dự án
-Gõ lệnh: npm run dev (hoặc node server.js)
+#### Step 3: Run the Project
+Run the command: `npm run dev` (or `node server.js`)
 
-#### Bước 4: Mở kết nối Ngrok (Cho Demo Mobile)
-Gõ lệnh: ngrok http 5000
-Sau đó cập nhật link mới vào file index.html.
+#### Step 4: Open Ngrok Connection (For Mobile Demo)
+Run the command: `ngrok http 5000`
+Then update the generated link in the `index.html` file.
 
 ---
 
-### 4. QUY TRÌNH DEMO CHUẨN (DÀNH CHO GIẢNG VIÊN)
+### 4. STANDARD DEMO WORKFLOW (FOR INSTRUCTORS)
 
-1. TRÌNH DIỄN UI: Chuyển đổi giữa Light/Dark Mode để xem độ trong suốt của kính.
-2. ĐĂNG KÝ & 2FA: Tạo tài khoản Gmail, quét mã QR bằng điện thoại và xác nhận mã PIN.
-3. QUÊN MẬT KHẨU: Nhập Gmail -> Nhập mã PIN từ app điện thoại -> Đổi mật khẩu mới.
-4. ĐĂNG NHẬP GOOGLE: Bấm nút Google Sign-In và nhận thông báo Authorized.
+1. UI SHOWCASE: Toggle between Light and Dark Mode to observe the glass transparency effect.
+2. REGISTRATION & 2FA: Create an account using Gmail, scan the QR code via the mobile Authenticator app, and verify the PIN (the PIN refreshes every 30 seconds).
+3. FORGOT PASSWORD: Enter Gmail -> Enter the PIN from the mobile app -> Set a new password.
+4. GOOGLE SIGN-IN: Click the Google Sign-In button and receive the "Authorized" notification.
 
-### 5. TÀI KHOẢN TEST (TESTING CREDENTIALS)
-Để thuận tiện chấm điểm tính năng Phân quyền (RBAC), giảng viên vui lòng sử dụng tài khoản đã được phân quyền sẵn dưới đây:
+### 5. TESTING CREDENTIALS
+To facilitate the grading of the Role-Based Access Control (RBAC) feature, instructors are kindly requested to use the pre-configured accounts below:
 
-* **Tài khoản Admin (Superadmin):**
+* **Admin Account (Superadmin):**
   - Email: 524h0105@student.tdtu.edu.vn
   - Password: [123456]
-  - Quyền hạn: Kích hoạt giao diện Admin Center, xem thống kê Server Load và bảng Security Audit Logs.
+  - Privileges: Access the Admin Center interface, view Server Load statistics, and access Security Audit Logs.
 
-* **Tài khoản User:**
+* **User Account:**
   - Email: 524h0102@student.tdtu.edu.vn
   - Password: [654321]

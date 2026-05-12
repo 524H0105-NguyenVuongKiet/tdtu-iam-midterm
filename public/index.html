@@ -107,7 +107,7 @@
 
         .swal2-ios { background: var(--glass) !important; backdrop-filter: blur(40px) !important; border-radius: 35px !important; border: 1px solid var(--stroke) !important; color: var(--text-main) !important; }
 
-        /* --- TÙY CHỈNH ALERT LỖI (VALIDATION MESSAGE) CHUẨN IOS --- */
+        /* --- IOS STANDARD ERROR ALERT (VALIDATION MESSAGE) CUSTOMIZATION --- */
         .swal2-ios .swal2-validation-message {
             background: rgba(255, 69, 58, 0.1) !important;
             border: 1px solid rgba(255, 69, 58, 0.3) !important;
@@ -136,7 +136,7 @@
 
     <div class="sidebar-node">
         <svg width="26" height="26" fill="currentColor" viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
-        <svg width="26" height="26" fill="currentColor" viewBox="0 0 24 24"><path d="M12 17c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm6-9h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2z"/></svg>
+        <svg width="26" height="26" fill="currentColor" viewBox="0 0 24 24"><path d="M12 17c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm6-9h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1-.9-2-2-2z"/></svg>
     </div>
 
     <div class="auth-card">
@@ -226,15 +226,15 @@
             if(id !== 'forgot') document.getElementById('btn-'+(id==='login'?'in':'reg')).classList.add('active');
         }
 
-        // ĐÃ SỬA: Hàm kiểm tra Email tổng quát
+        // FIXED: General Email validation function
         function isValidEmail(e) { 
             return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e.toLowerCase());
         }
 
         function go(s) { 
             const email = document.getElementById('fe').value;
-            // ĐÃ SỬA: Lời nhắc lỗi Email chung
-            if(s === 2 && !isValidEmail(email)) return toast('error', 'Email Error', 'Vui lòng nhập định dạng Email hợp lệ!');
+            // FIXED: General Email error prompt
+            if(s === 2 && !isValidEmail(email)) return toast('error', 'Email Error', 'Please enter a valid Email format!');
             [1,2,3].forEach(i => document.getElementById('f'+i).style.display = (i===s)?'block':'none');
         }
 
@@ -243,7 +243,7 @@
             const token = document.getElementById('fo').value;
 
             if (token.length !== 6 || isNaN(token)) {
-                return toast('error', 'PIN Error', 'Mã xác thực phải đủ 6 chữ số.');
+                return toast('error', 'PIN Error', 'The verification code must be exactly 6 digits.');
             }
 
             Swal.fire({ 
@@ -264,11 +264,11 @@
                     toast('success', 'Identity Verified');
                     setTimeout(() => go(3), 800);
                 } else {
-                    toast('error', 'Access Denied', data.message || 'Mã OTP không chính xác.');
+                    toast('error', 'Access Denied', data.message || 'Incorrect OTP code.');
                 }
             } catch (error) {
                 Swal.close();
-                toast('error', 'Gateway Error', 'Không thể kết nối đến hệ thống xác thực.');
+                toast('error', 'Gateway Error', 'Unable to connect to the authentication system.');
             }
         }
 
@@ -300,8 +300,8 @@
 
         async function handleLogin() {
             const e = document.getElementById('l-email').value;
-            // ĐÃ SỬA: Kiểm tra email
-            if(!isValidEmail(e)) return toast('error', 'Email Required', 'Vui lòng nhập Email hợp lệ!');
+            // FIXED: Email validation
+            if(!isValidEmail(e)) return toast('error', 'Email Required', 'Please enter a valid Email!');
             Swal.showLoading();
             const res = await fetch(`${API}/login`, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ email: e, password: document.getElementById('l-pass').value }) });
             const d = await res.json(); 
@@ -315,8 +315,8 @@
 
         async function handleRegister() {
             const e = document.getElementById('r-email').value;
-            // ĐÃ SỬA: Kiểm tra email
-            if(!isValidEmail(e)) return toast('error', 'Email Required', 'Vui lòng nhập Email hợp lệ!');
+            // FIXED: Email validation
+            if(!isValidEmail(e)) return toast('error', 'Email Required', 'Please enter a valid Email!');
             const res = await fetch(`${API}/register`, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ email: e, password: document.getElementById('r-pass').value }) });
             const d = await res.json(); 
             if(d.qrCode) { 
@@ -432,7 +432,7 @@
             `;
         }
 
-        // --- 3 HÀM XỬ LÝ CHỨC NĂNG CHUYÊN NGHIỆP ---
+        // --- 3 PROFESSIONAL FUNCTION HANDLERS ---
         function showProfile() {
             const token = localStorage.getItem('token');
             const role = localStorage.getItem('role') || 'user';
@@ -444,7 +444,7 @@
                     const base64Url = token.split('.')[1];
                     const decodedValue = JSON.parse(window.atob(base64Url));
                     userId = decodedValue.id;
-                } catch (e) { console.error("Lỗi đọc Token"); }
+                } catch (e) { console.error("Error decoding Token"); }
             }
 
             Swal.fire({
@@ -472,7 +472,7 @@
                         <p style="color: #32d74b; font-weight: 800; font-size: 18px; margin-bottom: 5px;">2FA is Currently ACTIVE</p>
                         <p style="font-size: 13px; opacity: 0.8; margin-bottom: 25px;">Your account is protected by Time-based One-Time Passwords (TOTP).</p>
                         <hr style="border-color: rgba(255,255,255,0.1); margin-bottom: 20px;">
-                        <button class="btn btn-outline-danger w-100 rounded-pill fw-bold" onclick="Swal.showValidationMessage('Bạn không có quyền vô hiệu hóa 2FA trên tài khoản này do chính sách bảo mật của tổ chức!')">
+                        <button class="btn btn-outline-danger w-100 rounded-pill fw-bold" onclick="Swal.showValidationMessage('You do not have permission to disable 2FA on this account due to organizational security policies!')">
                             Disable Authenticator
                         </button>
                     </div>

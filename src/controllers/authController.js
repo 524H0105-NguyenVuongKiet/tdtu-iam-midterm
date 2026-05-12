@@ -7,79 +7,88 @@ const { OAuth2Client } = require('google-auth-library');
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 const { generateRegistrationOptions, verifyRegistrationResponse } = require('@simplewebauthn/server');
 
-// 1. API Đăng ký tài khoản
+// 1. Account Registration API
 exports.register = async (req, res) => {
     try {
         const { email, password, role } = req.body;
         const existingUser = await User.findOne({ email });
-        if (existingUser) return res.status(400).json({ message: 'Email này đã được sử dụng!' });
         
+        if (existingUser) return res.status(400).json({ message: 'This email is already in use!' });
+
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
         const secret = speakeasy.generateSecret({ name: `TDTU IAM - ${email}` });
-        
+
         const newUser = new User({ email, password: hashedPassword, role: role || 'user', twoFactorSecret: secret.base32 });
         await newUser.save();
 
         qrcode.toDataURL(secret.otpauth_url, (err, data_url) => {
-            if (err) return res.status(500).json({ message: 'Lỗi tạo mã QR' });
-            res.status(201).json({ message: 'Đăng ký tài khoản thành công!', qrCode: data_url });
+            if (err) return res.status(500).json({ message: 'Error generating QR code' });
+            res.status(201).json({ message: 'Account registered successfully!', qrCode: data_url });
         });
-    } catch (error) { res.status(500).json({ message: 'Lỗi Server!', error: error.message }); }
+    } catch (error) { res.status(500).json({ message: 'Internal Server Error!', error: error.message }); }
 };
 
-// 2. API Đăng nhập
+// 2. Login API
 exports.login = async (req, res) => {
     try {
         const { email, password } = req.body;
         const user = await User.findOne({ email });
-        if (!user) return res.status(400).json({ message: 'Email không tồn tại!' });
         
+        if (!user) return res.status(400).json({ message: 'Email does not exist!' });
+
         const isMatch = await bcrypt.compare(password, user.password);
-        if (!isMatch) return res.status(400).json({ message: 'Sai mật khẩu!' });
-        
+        if (!isMatch) return res.status(400).json({ message: 'Incorrect password!' });
+
         const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
-        // Đã thêm role vào phản hồi
-        res.json({ message: 'Đăng nhập thành công', token: token, role: user.role });
-    } catch (error) { res.status(500).json({ message: 'Lỗi Server!', error: error.message }); }
+        
+        // Added role to the response
+        res.json({ message: 'Login successful', token: token, role: user.role });
+    } catch (error) { res.status(500).json({ message: 'Internal Server Error!', error: error.message }); }
 };
 
-// 3. API Tạo mã QR 2FA
+// 3. Generate 2FA QR Code API
 exports.generate2FA = async (req, res) => {
     try {
         const { email } = req.body;
         const user = await User.findOne({ email });
-        if (!user) return res.status(400).json({ message: 'Không tìm thấy người dùng!' });
         
+        if (!user) return res.status(400).json({ message: 'User not found!' });
+
         const secret = speakeasy.generateSecret({ name: `WPA_Midterm_Kiet (${user.email})` });
         user.twoFactorSecret = secret.base32;
         await user.save();
+
         qrcode.toDataURL(secret.otpauth_url, (err, data_url) => {
-            if (err) return res.status(500).json({ message: 'Lỗi tạo mã QR' });
-            res.json({ message: 'Quét mã QR này', qrCodeImage: data_url, secret: secret.base32 });
+            if (err) return res.status(500).json({ message: 'Error generating QR code' });
+            res.json({ message: 'Scan this QR code', qrCodeImage: data_url, secret: secret.base32 });
         });
-    } catch (error) { res.status(500).json({ message: 'Lỗi Server!', error: error.message }); }
+    } catch (error) { res.status(500).json({ message: 'Internal Server Error!', error: error.message }); }
 };
 
-// 4. API Xác thực mã 2FA
+// 4. Verify 2FA API
 exports.verify2FA = async (req, res) => {
     try {
-        const { email, token } = req.body; 
+        const { email, token } = req.body;
         const user = await User.findOne({ email });
-        if (!user || !user.twoFactorSecret) return res.status(400).json({ message: 'Chưa cài đặt 2FA!' });
+        
+        if (!user || !user.twoFactorSecret) return res.status(400).json({ message: '2FA is not configured!' });
 
         const verified = speakeasy.totp.verify({ secret: user.twoFactorSecret, encoding: 'base32', token: token });
+
         if (verified) {
             user.isTwoFactorEnabled = true; await user.save();
-            res.json({ message: 'Xác thực 2FA thành công!' });
-        } else { res.status(400).json({ message: 'Mã xác thực không đúng!' }); }
-    } catch (error) { res.status(500).json({ message: 'Lỗi Server!', error: error.message }); }
+            res.json({ message: '2FA verification successful!' });
+        } else { 
+            res.status(400).json({ message: 'Invalid authentication code!' });
+        }
+    } catch (error) { res.status(500).json({ message: 'Internal Server Error!', error: error.message }); }
 };
 
-// 5. API Đăng nhập bằng Google
+// 5. Google Login API
 exports.googleLogin = async (req, res) => {
     try {
-        const { idToken } = req.body; 
+        const { idToken } = req.body;
         const ticket = await client.verifyIdToken({ idToken, audience: process.env.GOOGLE_CLIENT_ID });
         const { email, name, picture } = ticket.getPayload();
 
@@ -90,12 +99,13 @@ exports.googleLogin = async (req, res) => {
         }
 
         const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: '1h' });
-        // Đã thêm role vào đối tượng user
-        res.json({ message: 'Đăng nhập Google thành công', token, user: { email, name, picture, role: user.role } });
-    } catch (error) { res.status(400).json({ message: 'Xác thực Google thất bại!', error: error.message }); }
+        
+        // Added role to the user object
+        res.json({ message: 'Google login successful', token, user: { email, name, picture, role: user.role } });
+    } catch (error) { res.status(400).json({ message: 'Google authentication failed!', error: error.message }); }
 };
 
-// 6. API Vân tay
+// 6. Biometric API (WebAuthn Setup)
 exports.getBiometricOptions = async (req, res) => {
     const { email } = req.query;
     const user = await User.findOne({ email });
@@ -107,30 +117,32 @@ exports.getBiometricOptions = async (req, res) => {
     res.json(options);
 };
 
-// 7. API Quên mật khẩu
+// 7. Forgot Password API
 exports.resetPasswordWith2FA = async (req, res) => {
     try {
         const { email, otp, newPassword } = req.body;
         const user = await User.findOne({ email });
-        if (!user || !user.twoFactorSecret) return res.status(400).json({ message: 'Lỗi tài khoản' });
+        
+        if (!user || !user.twoFactorSecret) return res.status(400).json({ message: 'Account error or 2FA not configured' });
 
         const verified = speakeasy.totp.verify({ secret: user.twoFactorSecret, encoding: 'base32', token: otp });
-        if (!verified) return res.status(400).json({ message: 'Mã OTP không đúng!' });
+        if (!verified) return res.status(400).json({ message: 'Invalid OTP code!' });
 
         const salt = await bcrypt.genSalt(10);
         user.password = await bcrypt.hash(newPassword, salt);
         await user.save();
-        res.json({ message: 'Lấy lại mật khẩu thành công!' });
-    } catch (error) { res.status(500).json({ message: 'Lỗi Server!', error: error.message }); }
+        
+        res.json({ message: 'Password reset successful!' });
+    } catch (error) { res.status(500).json({ message: 'Internal Server Error!', error: error.message }); }
 };
 
-// 8. Xác thực OTP lẻ
+// 8. Single OTP Verification API
 exports.verifyOtpOnly = async (req, res) => {
     try {
         const { email, token } = req.body;
         const user = await User.findOne({ email });
         
-        if (!user || !user.twoFactorSecret) return res.status(404).json({ message: '2FA chưa kích hoạt' });
+        if (!user || !user.twoFactorSecret) return res.status(404).json({ message: '2FA is not enabled on this account' });
 
         const verified = speakeasy.totp.verify({
             secret: user.twoFactorSecret,
@@ -139,7 +151,10 @@ exports.verifyOtpOnly = async (req, res) => {
             window: 1 
         });
 
-        if (verified) { res.json({ message: 'Xác thực OTP thành công' }); } 
-        else { res.status(400).json({ message: 'Mã PIN không đúng!' }); }
+        if (verified) { 
+            res.json({ message: 'OTP verification successful' });
+        } else { 
+            res.status(400).json({ message: 'Invalid PIN code!' });
+        }
     } catch (error) { res.status(500).json({ message: error.message }); }
 };
