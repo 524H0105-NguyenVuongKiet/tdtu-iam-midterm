@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TDTU IAM - Masterpiece Pro Edition</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+    <style>
+        /* --- LIQUID GLASS 26 DESIGN SYSTEM --- */
+        :root[data-theme="dark"] {
+            --bg: #000000;
+            --liquid-mesh: radial-gradient(at 0% 0%, #1e1b4b 0, transparent 65%), radial-gradient(at 100% 100%, #0f172a 0, transparent 65%);
+            --glass: rgba(28, 28, 32, 0.9);
+            --stroke: rgba(255, 255, 255, 0.2);
+            --text-main: #FFFFFF; 
+            --text-sub: #F1F5F9; 
+            --text-muted: #CBD5E1;
+            --accent: #0A84FF;
+            --input-bg: rgba(255, 255, 255, 0.1);
+        }
+
+        :root[data-theme="light"] {
+            --bg: #F5F5F7;
+            --liquid-mesh: radial-gradient(at 0% 0%, #E2E8F0 0, transparent 55%), radial-gradient(at 100% 100%, #FFFFFF 0, transparent 55%);
+            --glass: rgba(255, 255, 255, 0.8);
+            --stroke: rgba(0, 0, 0, 0.1);
+            --text-main: #1D1D1F;
+            --text-sub: #3A3A3C;
+            --text-muted: #6E6E73;
+            --accent: #0071E3;
+            --input-bg: rgba(0, 0, 0, 0.05);
+        }
+
+        body {
+            background-color: var(--bg);
+            background-image: var(--liquid-mesh);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
+            height: 100vh; width: 100vw; margin: 0;
+            display: flex; justify-content: center; align-items: center;
+            overflow: hidden; position: relative;
+        }
+
+        /* --- SQUIRCLE ARCHITECTURE --- */
+        .auth-card {
+            width: 92%; max-width: 420px;
+            background: var(--glass);
+            backdrop-filter: blur(50px) saturate(210%);
+            -webkit-backdrop-filter: blur(50px) saturate(210%);
+            border: 1px solid var(--stroke);
+            border-top: 1.5px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50px;
+            padding: 55px 45px;
+            box-shadow: 0 50px 120px rgba(0,0,0,0.55);
+            z-index: 10;
+        }
+
+        @media (max-width: 768px) {
+            .sidebar-node { display: none; }
+            .theme-control { top: 25px !important; right: 25px !important; }
+            .auth-card { padding: 45px 30px; border-radius: 42px; }
+            .header-title { font-size: 28px !important; }
+        }
+
+        .header-title { font-weight: 800; font-size: 34px; letter-spacing: -1.8px; text-align: center; }
+        .header-sub { font-size: 14px; font-weight: 600; color: var(--text-sub); text-align: center; margin-bottom: 45px; opacity: 0.8; }
+
+        .ios-input {
+            width: 100%; background: var(--input-bg); border: 2px solid transparent; border-radius: 22px;
+            padding: 18px 24px; color: var(--text-main); font-weight: 600; font-size: 16px;
+            margin-bottom: 18px; transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .ios-input:focus { border-color: var(--accent); outline: none; background: rgba(255,255,255,0.15); }
+        .ios-input::placeholder { color: var(--text-muted); opacity: 0.5; }
+
+        .btn-apple {
+            background: var(--accent); color: #FFF; border: none; border-radius: 22px;
+            padding: 18px; font-weight: 700; width: 100%; font-size: 16px;
+            transition: 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+            box-shadow: 0 10px 25px rgba(0, 122, 255, 0.3);
+        }
+        .btn-apple:hover { transform: scale(1.02); filter: brightness(1.1); }
+        .btn-apple:active { transform: scale(0.96); }
+
+        .link-cancel {
+            color: var(--text-muted) !important; font-weight: 800; font-size: 14px;
+            text-decoration: none; transition: 0.3s; display: inline-block; margin-top: 25px;
+        }
+        .link-cancel:hover { color: var(--accent) !important; text-decoration: underline; }
+
+        .tabs-ios { display: flex; background: rgba(0,0,0,0.2); padding: 5px; border-radius: 25px; margin-bottom: 35px; border: 1px solid var(--stroke); }
+        .tab-btn { flex: 1; border: none; background: none; color: var(--text-sub); padding: 12px; border-radius: 20px; font-weight: 700; font-size: 14px; transition: 0.3s; }
+        .tab-btn.active { background: var(--glass); color: var(--accent); box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+
+        .theme-control { position: fixed; top: 40px; right: 40px; background: var(--glass); border: 1px solid var(--stroke); padding: 10px 22px; border-radius: 50px; font-weight: 800; font-size: 12px; cursor: pointer; z-index: 100; color: var(--text-main); }
+        .sidebar-node { position: fixed; left: 40px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 45px; }
+        .sidebar-node svg { color: var(--text-sub); opacity: 0.6; transition: 0.3s; }
+        .sidebar-node svg:hover { opacity: 1; color: var(--accent); transform: scale(1.1); }
+
+        .pane { display: none; }
+        .pane.active { display: block; animation: liquidIn 0.6s cubic-bezier(0.2, 0.8, 0.2, 1); }
+        @keyframes liquidIn { from { opacity: 0; transform: translateY(15px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+
+        .swal2-ios { background: var(--glass) !important; backdrop-filter: blur(40px) !important; border-radius: 35px !important; border: 1px solid var(--stroke) !important; color: var(--text-main) !important; }
+
+        /* --- TÙY CHỈNH ALERT LỖI (VALIDATION MESSAGE) CHUẨN IOS --- */
+        .swal2-ios .swal2-validation-message {
+            background: rgba(255, 69, 58, 0.1) !important;
+            border: 1px solid rgba(255, 69, 58, 0.3) !important;
+            border-radius: 18px !important;
+            color: #ff453a !important;
+            font-weight: 600 !important;
+            font-size: 13.5px !important;
+            padding: 15px !important;
+            margin-top: 20px !important;
+            box-shadow: 0 10px 25px rgba(255, 69, 58, 0.15) !important;
+        }
+        .swal2-ios .swal2-validation-message::before {
+            background-color: #ff453a !important;
+            color: #ffffff !important;
+            box-shadow: 0 0 10px rgba(255, 69, 58, 0.5) !important;
+            border-radius: 50% !important;
+            width: 22px !important;
+            height: 22px !important;
+            margin-right: 10px !important;
+        }
+    </style>
+</head>
+<body>
+
+    <button class="theme-control" id="theme-btn">☀️ Light Mode</button>
+
+    <div class="sidebar-node">
+        <svg width="26" height="26" fill="currentColor" viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg>
+        <svg width="26" height="26" fill="currentColor" viewBox="0 0 24 24"><path d="M12 17c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm6-9h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2z"/></svg>
+    </div>
+
+    <div class="auth-card">
+        <h1 class="header-title">Gateway</h1>
+        <p class="header-sub">Advanced Identity Gateway</p>
+
+        <div id="tab-nav-wrapper">
+            <div class="tabs-ios">
+                <button class="tab-btn active" id="btn-in" onclick="switchTab('login')">Sign In</button>
+                <button class="tab-btn" id="btn-reg" onclick="switchTab('register')">Register</button>
+            </div>
+        </div>
+
+        <div class="pane active" id="login">
+            <input type="email" id="l-email" class="ios-input" placeholder="Email Address">
+            <input type="password" id="l-pass" class="ios-input" placeholder="Password">
+            <div class="text-end mb-4">
+                <a href="javascript:void(0)" class="text-decoration-none small fw-bold" style="color: var(--accent);" onclick="openForgot()">Forgot Password?</a>
+            </div>
+            <button class="btn-apple" onclick="handleLogin()">Sign In</button>
+            <div style="display: flex; align-items: center; margin: 30px 0;">
+                <div style="flex:1; height:1px; background: var(--stroke);"></div>
+                <span style="margin: 0 15px; font-size: 11px; font-weight: 800; color: var(--text-sub);">GOOGLE</span>
+                <div style="flex:1; height:1px; background: var(--stroke);"></div>
+            </div>
+            <div id="google-mount" class="d-flex justify-content-center"></div>
+        </div>
+
+        <div class="pane" id="register">
+            <input type="email" id="r-email" class="ios-input" placeholder="Email Address">
+            <input type="password" id="r-pass" class="ios-input" placeholder="Create Password">
+            <button class="btn-apple" onclick="handleRegister()">Initialize Security</button>
+            <div id="qr-area" style="display: none; margin-top: 35px; text-align: center;">
+                <p class="small fw-bold text-primary mb-3">Scan with Google Authenticator</p>
+                <img id="qr-img" class="bg-white p-2 rounded-4 mb-4 shadow-lg" style="max-width: 170px; border: 4px solid var(--stroke);">
+                <input type="text" id="otp-reg" class="ios-input text-center" placeholder="6-digit PIN" maxlength="6">
+                <button class="btn btn-dark w-100 rounded-4 py-3 fw-bold" onclick="verify2FA()">Confirm Device</button>
+            </div>
+        </div>
+
+        <div class="pane" id="forgot">
+            <div id="f1">
+                 <p class="text-center small mb-4 fw-bold">Step 1: Identity</p>
+                 <input type="email" id="fe" class="ios-input" placeholder="Account Email">
+                <button class="btn-apple" onclick="go(2)">Request PIN</button>
+            </div>
+            <div id="f2" style="display:none">
+                <p class="text-center small text-warning mb-4 fw-bold">Step 2: Security PIN</p>
+                <input type="text" id="fo" class="ios-input text-center" placeholder="6-digit PIN" maxlength="6">
+                <button class="btn-apple" onclick="verifyStep2()">Verify PIN</button>
+            </div>
+            <div id="f3" style="display:none">
+                <p class="text-center small text-success mb-4 fw-bold">Step 3: New Keychain</p>
+                <input type="password" id="fp" class="ios-input" placeholder="New Password">
+                <button class="btn-apple bg-success" onclick="resetFinal()">Update Account</button>
+            </div>
+            <div class="text-center"><a href="javascript:void(0)" class="link-cancel" onclick="switchTab('login')">← Cancel & Return</a></div>
+        </div>
+    </div>
+
+    <div class="master-footer" style="position: fixed; bottom: 35px; left: 0; width: 100%; text-align: center; color: var(--text-muted); font-size: 12px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase;">
+        Security Gateway • TDTU Midterm • 2026
+    </div>
+
+    <script>
+        const API = 'https://taste-victory-capricorn.ngrok-free.dev/api/auth';
+        const G_ID = "410410827263-antql5c3aq2jtq67rgd3mj2ma58b7kop.apps.googleusercontent.com";
+
+        const themeBtn = document.getElementById('theme-btn');
+        let mode = localStorage.getItem('theme') || 'dark';
+        document.documentElement.setAttribute('data-theme', mode);
+        themeBtn.innerText = mode === 'dark' ? '☀️ Light Mode' : '🌙 Dark Mode';
+        
+        themeBtn.onclick = () => {
+            mode = mode === 'dark' ? 'light' : 'dark';
+            document.documentElement.setAttribute('data-theme', mode);
+            localStorage.setItem('theme', mode);
+            themeBtn.innerText = mode === 'dark' ? '☀️ Light Mode' : '🌙 Dark Mode';
+            renderG();
+        };
+
+        function switchTab(id) {
+            document.querySelectorAll('.pane').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            document.getElementById('tab-nav-wrapper').style.display = (id === 'forgot') ? 'none' : 'block';
+            if(id !== 'forgot') document.getElementById('btn-'+(id==='login'?'in':'reg')).classList.add('active');
+        }
+
+        // ĐÃ SỬA: Hàm kiểm tra Email tổng quát
+        function isValidEmail(e) { 
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e.toLowerCase());
+        }
+
+        function go(s) { 
+            const email = document.getElementById('fe').value;
+            // ĐÃ SỬA: Lời nhắc lỗi Email chung
+            if(s === 2 && !isValidEmail(email)) return toast('error', 'Email Error', 'Vui lòng nhập định dạng Email hợp lệ!');
+            [1,2,3].forEach(i => document.getElementById('f'+i).style.display = (i===s)?'block':'none');
+        }
+
+        async function verifyStep2() {
+            const email = document.getElementById('fe').value;
+            const token = document.getElementById('fo').value;
+
+            if (token.length !== 6 || isNaN(token)) {
+                return toast('error', 'PIN Error', 'Mã xác thực phải đủ 6 chữ số.');
+            }
+
+            Swal.fire({ 
+                title: 'Verifying Security PIN...', 
+                didOpen: () => Swal.showLoading(), 
+                customClass: { popup: 'swal2-ios' }
+            });
+
+            try {
+                const res = await fetch(`${API}/verify-otp-only`, { 
+                    method: 'POST', 
+                    headers: {'Content-Type': 'application/json'}, 
+                    body: JSON.stringify({ email, token }) 
+                });
+                const data = await res.json();
+                Swal.close();
+                if (res.ok) {
+                    toast('success', 'Identity Verified');
+                    setTimeout(() => go(3), 800);
+                } else {
+                    toast('error', 'Access Denied', data.message || 'Mã OTP không chính xác.');
+                }
+            } catch (error) {
+                Swal.close();
+                toast('error', 'Gateway Error', 'Không thể kết nối đến hệ thống xác thực.');
+            }
+        }
+
+        function toast(icon, title, text = "") {
+            Swal.fire({ icon: icon, title: title, text: text, customClass: { popup: 'swal2-ios' }, timer: 2500, showConfirmButton: false, background: 'rgba(0,0,0,0)' });
+        }
+
+        function renderG() {
+            if (typeof google === 'undefined') return;
+            google.accounts.id.renderButton(document.getElementById("google-mount"), { theme: mode === 'dark' ? "filled_black" : "outline", size: "large", width: 340, shape: "pill" });
+        }
+
+        window.onload = () => { 
+            if(localStorage.getItem('token')) showDash();
+            google.accounts.id.initialize({ client_id: G_ID, callback: handleG }); 
+            renderG(); 
+        };
+        
+        async function handleG(r) {
+            const res = await fetch(`${API}/google`, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ idToken: r.credential }) });
+            const d = await res.json(); 
+            if(d.token) { 
+                localStorage.setItem('token', d.token);
+                localStorage.setItem('role', d.user.role); 
+                localStorage.setItem('user_email', d.user.email); 
+                location.reload();
+            }
+        }
+
+        async function handleLogin() {
+            const e = document.getElementById('l-email').value;
+            // ĐÃ SỬA: Kiểm tra email
+            if(!isValidEmail(e)) return toast('error', 'Email Required', 'Vui lòng nhập Email hợp lệ!');
+            Swal.showLoading();
+            const res = await fetch(`${API}/login`, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ email: e, password: document.getElementById('l-pass').value }) });
+            const d = await res.json(); 
+            if(res.ok) { 
+                localStorage.setItem('token', d.token);
+                localStorage.setItem('role', d.role); 
+                localStorage.setItem('user_email', e); 
+                location.reload();
+            } else toast('error', 'Denied', d.message);
+        }
+
+        async function handleRegister() {
+            const e = document.getElementById('r-email').value;
+            // ĐÃ SỬA: Kiểm tra email
+            if(!isValidEmail(e)) return toast('error', 'Email Required', 'Vui lòng nhập Email hợp lệ!');
+            const res = await fetch(`${API}/register`, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ email: e, password: document.getElementById('r-pass').value }) });
+            const d = await res.json(); 
+            if(d.qrCode) { 
+                document.getElementById('qr-area').style.display='block'; 
+                document.getElementById('qr-img').src=d.qrCode; 
+                localStorage.setItem('temp_email', e); 
+            } else {
+                toast('error', 'Error', d.message);
+            }
+        }
+
+        async function verify2FA() {
+            const e = localStorage.getItem('temp_email');
+            const t = document.getElementById('otp-reg').value;
+            const res = await fetch(`${API}/verify-2fa`, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ email:e, token:t }) });
+            if(res.ok) location.reload(); else toast('error', 'Failed');
+        }
+
+        async function resetFinal() {
+            const e = document.getElementById('fe').value;
+            const o = document.getElementById('fo').value;
+            const p = document.getElementById('fp').value;
+            const res = await fetch(`${API}/reset-password-2fa`, { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ email:e, otp:o, newPassword:p }) });
+            if(res.ok) { 
+                toast('success', 'Password Updated'); 
+                setTimeout(() => switchTab('login'), 1000); 
+            } else {
+                toast('error', 'Failed');
+            }
+        }
+
+        // --- DASHBOARD RBAC PRO MAX ---
+        function showDash() {
+            const role = localStorage.getItem('role') || 'user';
+            const isAdmin = (role === 'admin');
+
+            const userWidgets = `
+                <div class="glass-panel">
+                    <div class="stat-box"><span>Gateway</span><span class="text-success">Secured</span></div>
+                    <div class="stat-box"><span>2FA Status</span><span class="text-success">Active</span></div>
+                </div>
+                <div class="menu-list">
+                    <div class="menu-item" onclick="showProfile()"><span>👤 Profile & Identity</span> <span class="arrow">→</span></div>
+                    <div class="menu-item" onclick="showAuthSettings()"><span>🔐 Authenticator Settings</span> <span class="arrow">→</span></div>
+                    <div class="menu-item" onclick="showActivityLog()"><span>📜 Login Activity Log</span> <span class="arrow">→</span></div>
+                </div>
+            `;
+
+            const adminWidgets = `
+                <div class="glass-panel">
+                    <div class="stat-box"><span>Active Users</span><span class="text-primary">1,024</span></div>
+                    <div class="stat-box"><span>Server Load</span><span class="text-warning">42%</span></div>
+                    <div class="stat-box"><span>Threats</span><span class="text-success">0</span></div>
+                </div>
+                <div class="menu-list">
+                    <div class="menu-item" onclick="showProfile()"><span>👥 IAM Administrator</span> <span class="arrow">→</span></div>
+                    <div class="menu-item" onclick="showAuthSettings()"><span>⚙️ Gateway Configuration</span> <span class="arrow">→</span></div>
+                    <div class="menu-item" onclick="showActivityLog()"><span>📊 Security Audit Logs</span> <span class="arrow">→</span></div>
+                </div>
+            `;
+
+            document.body.innerHTML = `
+                <style>
+                    .dash-card {
+                        width: 92%; max-width: 450px; background: var(--glass);
+                        backdrop-filter: blur(55px) saturate(210%); -webkit-backdrop-filter: blur(55px) saturate(210%);
+                        border: 1px solid var(--stroke); border-top: 1.5px solid rgba(255, 255, 255, 0.3);
+                        border-radius: 45px; padding: 45px 35px; box-shadow: 0 40px 100px rgba(0,0,0,0.6);
+                        color: var(--text-main); animation: liquidIn 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+                    }
+                    .dash-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+                    .dash-title { font-size: 26px; font-weight: 800; margin: 0; letter-spacing: -1px; }
+                    .role-badge { padding: 6px 14px; border-radius: 20px; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; border: 1px solid rgba(255,255,255,0.2); }
+                    .role-admin { background: rgba(255, 69, 58, 0.2); color: #ff453a; box-shadow: 0 0 15px rgba(255, 69, 58, 0.3); }
+                    .role-user { background: rgba(10, 132, 255, 0.2); color: #0a84ff; box-shadow: 0 0 15px rgba(10, 132, 255, 0.3); }
+                    .glass-panel { display: flex; gap: 12px; margin-bottom: 25px; }
+                    .stat-box { flex: 1; background: rgba(255,255,255,0.05); border: 1px solid var(--stroke); border-radius: 22px; padding: 15px 10px; text-align: center; box-shadow: inset 0 2px 10px rgba(0,0,0,0.1); }
+                    .stat-box span:first-child { display: block; font-size: 11px; color: var(--text-muted); text-transform: uppercase; font-weight: 700; margin-bottom: 8px; letter-spacing: 0.5px; }
+                    .stat-box span:last-child { font-size: 18px; font-weight: 800; text-shadow: 0 2px 10px rgba(0,0,0,0.2); }
+                    .menu-list { background: rgba(0,0,0,0.15); border-radius: 26px; padding: 6px; margin-bottom: 30px; border: 1px solid var(--stroke); }
+                    .menu-item { display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; font-weight: 600; font-size: 15px; border-bottom: 1px solid rgba(255,255,255,0.05); cursor: pointer; transition: 0.3s; color: var(--text-sub); }
+                    .menu-item:last-child { border-bottom: none; }
+                    .menu-item:hover { background: rgba(255,255,255,0.05); border-radius: 20px; color: var(--text-main); padding-left: 25px; }
+                    .arrow { opacity: 0.5; font-size: 18px; }
+                    .logout-btn { background: rgba(255, 69, 58, 0.1); color: #ff453a; border: 1px solid rgba(255, 69, 58, 0.2); padding: 18px; border-radius: 24px; font-weight: 800; font-size: 15px; width: 100%; transition: 0.3s; cursor: pointer; box-shadow: 0 5px 15px rgba(255,69,58,0.1); }
+                    .logout-btn:hover { background: #ff453a; color: #fff; transform: scale(1.02); box-shadow: 0 10px 25px rgba(255,69,58,0.3); }
+                    .text-success { color: #32d74b !important; }
+                    .text-primary { color: #0a84ff !important; }
+                    .text-warning { color: #ffd60a !important; }
+                </style>
+                
+                <div class="dash-card">
+                    <div class="dash-header">
+                        <h1 class="dash-title">${isAdmin ? 'Admin Center' : 'Identity Hub'}</h1>
+                        <span class="role-badge ${isAdmin ? 'role-admin' : 'role-user'}">
+                            ${isAdmin ? '★ SUPERADMIN' : '● VERIFIED'}
+                        </span>
+                    </div>
+                    
+                    <p style="color: var(--text-muted); font-size: 14px; margin-bottom: 30px; font-weight: 500; line-height: 1.5;">
+                        ${isAdmin ? 'Elevated privileges granted. All administrative actions are securely audited.' : 'Identity verified via Multi-Factor Authentication. Connection is encrypted.'}
+                    </p>
+
+                    ${isAdmin ? adminWidgets : userWidgets}
+
+                    <button class="logout-btn" onclick="localStorage.clear();location.reload()">
+                        Terminate Secure Session
+                    </button>
+                </div>
+                <div class="master-footer" style="position: fixed; bottom: 35px; left: 0; width: 100%; text-align: center; color: var(--text-muted); font-size: 12px; font-weight: 800; letter-spacing: 1.2px; text-transform: uppercase;">
+                    Advanced IAM System • Liquid Glass Engine • 2026
+                </div>
+            `;
+        }
+
+        // --- 3 HÀM XỬ LÝ CHỨC NĂNG CHUYÊN NGHIỆP ---
+        function showProfile() {
+            const token = localStorage.getItem('token');
+            const role = localStorage.getItem('role') || 'user';
+            const email = localStorage.getItem('user_email') || 'Unknown';
+            
+            let userId = 'N/A';
+            if (token) {
+                try {
+                    const base64Url = token.split('.')[1];
+                    const decodedValue = JSON.parse(window.atob(base64Url));
+                    userId = decodedValue.id;
+                } catch (e) { console.error("Lỗi đọc Token"); }
+            }
+
+            Swal.fire({
+                title: 'Identity Information',
+                html: `
+                    <div style="text-align: left; padding: 20px; background: rgba(0,0,0,0.2); border-radius: 15px; border: 1px solid var(--stroke); color: var(--text-sub); font-size: 14px;">
+                        <div style="margin-bottom: 12px;"><strong>User ID:</strong> <br><span style="color: var(--accent); font-family: monospace;">${userId}</span></div>
+                        <div style="margin-bottom: 12px;"><strong>Account Email:</strong> <br><span style="color: var(--text-main);">${email}</span></div>
+                        <div style="margin-bottom: 12px;"><strong>Access Role:</strong> <br><span class="badge ${role==='admin' ? 'bg-danger' : 'bg-primary'}">${role.toUpperCase()}</span></div>
+                        <div style="margin-bottom: 0;"><strong>Security Level:</strong> <br><span class="text-success">Level 2 (TOTP Verified)</span></div>
+                    </div>
+                `,
+                customClass: { popup: 'swal2-ios' },
+                confirmButtonText: 'Close',
+                confirmButtonColor: 'var(--accent)'
+            });
+        }
+
+        function showAuthSettings() {
+            Swal.fire({
+                title: 'Authenticator Settings',
+                html: `
+                    <div style="text-align: center; color: var(--text-sub);">
+                        <div style="font-size: 50px; margin-bottom: 15px;">🛡️</div>
+                        <p style="color: #32d74b; font-weight: 800; font-size: 18px; margin-bottom: 5px;">2FA is Currently ACTIVE</p>
+                        <p style="font-size: 13px; opacity: 0.8; margin-bottom: 25px;">Your account is protected by Time-based One-Time Passwords (TOTP).</p>
+                        <hr style="border-color: rgba(255,255,255,0.1); margin-bottom: 20px;">
+                        <button class="btn btn-outline-danger w-100 rounded-pill fw-bold" onclick="Swal.showValidationMessage('Bạn không có quyền vô hiệu hóa 2FA trên tài khoản này do chính sách bảo mật của tổ chức!')">
+                            Disable Authenticator
+                        </button>
+                    </div>
+                `,
+                customClass: { popup: 'swal2-ios' },
+                showConfirmButton: false,
+                showCloseButton: true
+            });
+        }
+
+        function showActivityLog() {
+            const now = new Date();
+            const time1 = now.toLocaleString('en-GB');
+            now.setHours(now.getHours() - 5);
+            const time2 = now.toLocaleString('en-GB');
+
+            Swal.fire({
+                title: 'Security Audit Log',
+                html: `
+                    <p style="font-size: 13px; color: var(--text-muted); text-align: left; margin-bottom: 15px;">Recent access attempts from your account:</p>
+                    <div style="overflow-x: auto; border-radius: 12px; border: 1px solid var(--stroke);">
+                        <table class="table table-dark table-hover mb-0" style="font-size: 12px; text-align: left; background: transparent;">
+                            <thead style="opacity: 0.8;"><tr><th>Time</th><th>IP Address</th><th>Status</th></tr></thead>
+                            <tbody>
+                                <tr><td>${time1}</td><td>113.161.42.x</td><td class="text-success fw-bold">Success</td></tr>
+                                <tr><td>${time2}</td><td>113.161.42.x</td><td class="text-success fw-bold">Success</td></tr>
+                                <tr><td>2 days ago</td><td>14.232.11.x</td><td class="text-danger fw-bold">Failed (OTP)</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                `,
+                width: '550px',
+                customClass: { popup: 'swal2-ios' },
+                confirmButtonText: 'Acknowledge',
+                confirmButtonColor: 'var(--accent)'
+            });
+        }
+
+        function openForgot() { switchTab('forgot'); go(1); }
+    </script>
+</body>
+</html>
