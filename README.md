@@ -1,6 +1,6 @@
 # TDTU IAM SYSTEM - MASTERPIECE LIQUID GLASS EDITION (2026)
 
-Hệ thống Quản lý Định danh và Truy cập (IAM) phiên bản cao cấp.
+Hệ thống Quản lý Định danh và Truy cập (IAM).
 Thiết kế dựa trên ngôn ngữ Human Interface - iOS 26 Liquid Glass.
 
 
@@ -19,7 +19,6 @@ Thiết kế dựa trên ngôn ngữ Human Interface - iOS 26 Liquid Glass.
 - Google OAuth2 Integration: Đăng nhập nhanh với tài khoản Google, nút bấm Pill-shape tự động thích ứng theme.
 - Hardened Password Recovery: Quy trình khôi phục mật khẩu 3 bước, bắt buộc xác thực mã PIN trước khi đổi pass.
 - Smart Input Validation:
-  + Chỉ chấp nhận định dạng @gmail.com.
   + Mã OTP/PIN bắt buộc đúng 6 chữ số mới cho xác thực.
 - JWT Stateless Auth: Quản lý phiên làm việc bằng Token bảo mật.
 
@@ -58,7 +57,7 @@ Sau đó cập nhật link mới vào file index.html.
 ### 4. QUY TRÌNH DEMO CHUẨN (DÀNH CHO GIẢNG VIÊN)
 
 1. TRÌNH DIỄN UI: Chuyển đổi giữa Light/Dark Mode để xem độ trong suốt của kính.
-2. ĐĂNG KÝ & 2FA: Tạo tài khoản Gmail, quét mã QR bằng điện thoại và xác nhận mã PIN.
+2. ĐĂNG KÝ & 2FA: Tạo tài khoản Gmail, quét mã QR bằng app Authenticator qua điện thoại và xác nhận mã PIN trong 30 giây mã PIN sẽ được cập nhật liên tục.
 3. QUÊN MẬT KHẨU: Nhập Gmail -> Nhập mã PIN từ app điện thoại -> Đổi mật khẩu mới.
 4. ĐĂNG NHẬP GOOGLE: Bấm nút Google Sign-In và nhận thông báo Authorized.
 
