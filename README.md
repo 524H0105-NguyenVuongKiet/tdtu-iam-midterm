@@ -1,7 +1,7 @@
-# TDTU IAM SYSTEM - MASTERPIECE LIQUID GLASS EDITION (2026)
+# TDTU IAM SYSTEM (2026)
 
 Identity and Access Management (IAM) System.
-Designed based on the Human Interface Guidelines - iOS 26 Liquid Glass.
+Designed based on the Human Interface Guidelines - Liquid Glass.
 
 ---
 
