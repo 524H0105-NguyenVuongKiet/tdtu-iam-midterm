@@ -40,12 +40,12 @@ Register Sceen.
 <img width="1896" height="887" alt="image" src="https://github.com/user-attachments/assets/8b0e291a-4cac-46df-8e88-a30e682f3ff4" />
 <img width="1910" height="892" alt="image" src="https://github.com/user-attachments/assets/7aa802f3-b406-400e-8ffb-070bf4e5fa3f" />
 <img width="1913" height="894" alt="{AC96B4CD-83CD-4395-9A88-6BEAF3A0C96A}" src="https://github.com/user-attachments/assets/4c982ee2-d9b7-4bca-a91f-7ea6f3c83021" />
-"Authenticating with standard user privileges."
+"Authenticating with administrator privileges."
 <img width="1918" height="893" alt="image" src="https://github.com/user-attachments/assets/784a2ad7-7e19-4ac2-9ae8-092a358979be" />
 <img width="1919" height="893" alt="image" src="https://github.com/user-attachments/assets/5a3b6e73-d6d4-4fe9-bff3-2c7ec324694b" />
 <img width="1918" height="879" alt="image" src="https://github.com/user-attachments/assets/7805f210-7bed-479c-8b4b-ca19abeca3db" />
 <img width="1913" height="885" alt="image" src="https://github.com/user-attachments/assets/96737150-525c-4148-b5fa-1979c464cb45" />
-
+"Authenticating with standard user privileges."
 ---
 
 ### 2. TECH STACK
