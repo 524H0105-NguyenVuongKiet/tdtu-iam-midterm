@@ -12,6 +12,10 @@ Designed based on the Human Interface Guidelines - Liquid Glass.
 - Retina Clarity System: High contrast, ensuring crisp and readable text in both Light and Dark Modes.
 - Apple Squircle Design: 50px geometric Apple-standard border radius for all cards and buttons.
 - Multi-Device Responsive: Auto-optimizes the interface, hides the sidebar, and scales down headings on Mobile/Tablet devices.
+<img width="1918" height="879" alt="image" src="https://github.com/user-attachments/assets/4bfd27f9-51b3-4459-96a8-9604b5be5605" />
+<img width="1918" height="892" alt="image" src="https://github.com/user-attachments/assets/bdbdedce-f97c-44cf-8822-cd9497b738cc" />
+
+
 
 #### 🛡️ SECURITY MECHANISMS
 - Multi-Factor Authentication (2FA): Authentication via Google Authenticator using QR codes.
@@ -20,6 +24,31 @@ Designed based on the Human Interface Guidelines - Liquid Glass.
 - Smart Input Validation:
   + OTP/PIN must be exactly 6 digits to proceed with authentication.
 - JWT Stateless Auth: Session management using secure JSON Web Tokens.
+<img width="1910" height="891" alt="image" src="https://github.com/user-attachments/assets/bf20ac21-ded3-4306-9dc8-26330f721de8" />
+already existed it with notify pop-up and denined
+<img width="1911" height="888" alt="image" src="https://github.com/user-attachments/assets/5bf1c2ae-9aa8-4220-899d-192223f4a213" />
+can choose google account to login or login with existed account
+<img width="1914" height="885" alt="{E6B224FE-5357-4533-A454-B258022AB13F}" src="https://github.com/user-attachments/assets/0565d38c-072f-47a5-9a1a-9ec394232e59" />
+login section with admin account
+<img width="1920" height="1080" alt="{59AC87FB-C4ED-471B-8B1B-A9A98134B53E}" src="https://github.com/user-attachments/assets/192e5cfa-00cb-4977-a0a1-73ff79afc32b" />
+<img width="1896" height="887" alt="image" src="https://github.com/user-attachments/assets/8b0e291a-4cac-46df-8e88-a30e682f3ff4" />
+<img width="1910" height="892" alt="image" src="https://github.com/user-attachments/assets/7aa802f3-b406-400e-8ffb-070bf4e5fa3f" />
+<img width="1913" height="894" alt="{AC96B4CD-83CD-4395-9A88-6BEAF3A0C96A}" src="https://github.com/user-attachments/assets/4c982ee2-d9b7-4bca-a91f-7ea6f3c83021" />
+
+
+
+login section with user account
+<img width="1918" height="893" alt="image" src="https://github.com/user-attachments/assets/784a2ad7-7e19-4ac2-9ae8-092a358979be" />
+<img width="1919" height="893" alt="image" src="https://github.com/user-attachments/assets/5a3b6e73-d6d4-4fe9-bff3-2c7ec324694b" />
+<img width="1918" height="879" alt="image" src="https://github.com/user-attachments/assets/7805f210-7bed-479c-8b4b-ca19abeca3db" />
+<img width="1913" height="885" alt="image" src="https://github.com/user-attachments/assets/96737150-525c-4148-b5fa-1979c464cb45" />
+
+
+
+
+
+
+
 
 ---
 
@@ -46,10 +75,6 @@ Run the command: `npm install`
 
 #### Step 3: Run the Project
 Run the command: `npm run dev` (or `node server.js`)
-
-#### Step 4: Open Ngrok Connection (For Mobile Demo)
-Run the command: `ngrok http 5000`
-Then update the generated link in the `index.html` file.
 
 ---
 
