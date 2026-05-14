@@ -5,7 +5,12 @@ Designed based on the Human Interface Guidelines - Liquid Glass.
 
 ---
 
-### 1. KEY FEATURES
+### 1. KEY FEATURES 
+
+
+#### 📺 Video Demo
+https://drive.google.com/file/d/1wlOIfYXK7rlKWld7lcGTT7N7LDKYeyWi/view?usp=drive_link
+
 
 #### 🎨 UI/UX DESIGN
 - Liquid Glass Architecture: Liquid glass effect, ultra-deep blur, and animated mesh gradients.
