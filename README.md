@@ -30,7 +30,7 @@ Designed based on the Human Interface Guidelines - Liquid Glass.
   + OTP/PIN must be exactly 6 digits to proceed with authentication.
 - JWT Stateless Auth: Session management using secure JSON Web Tokens.
 <img width="1910" height="891" alt="image" src="https://github.com/user-attachments/assets/bf20ac21-ded3-4306-9dc8-26330f721de8" />
-Register Account Sceen.
+Register account sceen with 2FA via Google Authenticator using QR codes.
 <img width="1911" height="888" alt="image" src="https://github.com/user-attachments/assets/5bf1c2ae-9aa8-4220-899d-192223f4a213" />
 "Rejects the request and triggers a validation error popup due to an existing record."
 <img width="1914" height="885" alt="{E6B224FE-5357-4533-A454-B258022AB13F}" src="https://github.com/user-attachments/assets/0565d38c-072f-47a5-9a1a-9ec394232e59" />
