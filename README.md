@@ -90,7 +90,7 @@ Run the command: `npm run dev` (or `node server.js`)
 
 ### 5. TESTING CREDENTIALS
 To facilitate the grading of the Role-Based Access Control (RBAC) feature, instructors are kindly requested to use the pre-configured accounts below:
-Because the database is running locally, please register a new account on your machine to test the features. To test Admin privileges, please modify the 'role' field to 'admin' in your local MongoDB collection.
+Because the database is running locally, please register a new account on your machine to test the features. To test Admin privileges, please modify the 'role' field to 'admin' or "user" in your local MongoDB collection.
 <img width="1011" height="230" alt="{0CDCFB9D-6BF7-4F6B-818A-0491F834FD2D}" src="https://github.com/user-attachments/assets/59a28d49-5cd2-46af-9688-275057ec94d3" />
 <img width="1920" height="1080" alt="{EEEF653B-28BD-4F4C-9A66-E720B80E32A7}" src="https://github.com/user-attachments/assets/61394f9e-da37-4aa8-b124-2041559b6ebf" />
 <img width="1493" height="273" alt="{D46428D5-BA7C-4BCA-BA4F-26D35E70B51F}" src="https://github.com/user-attachments/assets/a2f0d461-2400-45ed-b10b-df5667232a0a" />
@@ -98,7 +98,7 @@ Because the database is running locally, please register a new account on your m
 
 
 
-
+For example:
 * **Admin Account (Superadmin):**
   - Email: 524h0105@student.tdtu.edu.vn
   - Password: [123456]
