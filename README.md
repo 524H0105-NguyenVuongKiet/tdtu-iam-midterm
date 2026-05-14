@@ -45,6 +45,9 @@ Register Account Sceen.
 <img width="1918" height="879" alt="image" src="https://github.com/user-attachments/assets/7805f210-7bed-479c-8b4b-ca19abeca3db" />
 <img width="1913" height="885" alt="image" src="https://github.com/user-attachments/assets/96737150-525c-4148-b5fa-1979c464cb45" />
 "Authenticating with standard user privileges."
+
+
+
 ---
 
 ### 2. TECH STACK
