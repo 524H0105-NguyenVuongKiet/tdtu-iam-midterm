@@ -1,17 +1,31 @@
-# TDTU IAM SYSTEM - MASTERPIECE LIQUID GLASS EDITION (2026)
+# TDTU IAM SYSTEM (2026)
 
 Identity and Access Management (IAM) System.
-Designed based on the Human Interface Guidelines - iOS 26 Liquid Glass.
+Designed based on the Human Interface Guidelines - Liquid Glass.
 
 ---
 
-### 1. KEY FEATURES
+### 1. KEY FEATURES 
+
+
+#### 📺 Video Demo
+https://drive.google.com/file/d/1wlOIfYXK7rlKWld7lcGTT7N7LDKYeyWi/view?usp=drive_link
+
 
 #### 🎨 UI/UX DESIGN
 - Liquid Glass Architecture: Liquid glass effect, ultra-deep blur, and animated mesh gradients.
 - Retina Clarity System: High contrast, ensuring crisp and readable text in both Light and Dark Modes.
 - Apple Squircle Design: 50px geometric Apple-standard border radius for all cards and buttons.
 - Multi-Device Responsive: Auto-optimizes the interface, hides the sidebar, and scales down headings on Mobile/Tablet devices.
+- DarkMode.
+<img width="1918" height="879" alt="image" src="https://github.com/user-attachments/assets/4bfd27f9-51b3-4459-96a8-9604b5be5605" />
+<img width="1918" height="892" alt="image" src="https://github.com/user-attachments/assets/bdbdedce-f97c-44cf-8822-cd9497b738cc" />
+- LightMode.
+<img width="1910" height="896" alt="{96978B96-67CA-4F36-9CD6-8B5DAA0189C6}" src="https://github.com/user-attachments/assets/165f9d24-3a81-4105-b90e-0652f6a657c8" />
+<img width="1909" height="886" alt="{49E35BDF-E8BA-4226-96C1-1CF7A41FD8CE}" src="https://github.com/user-attachments/assets/39d95e78-2cff-4848-9fb7-4203448f011b" />
+
+
+
 
 #### 🛡️ SECURITY MECHANISMS
 - Multi-Factor Authentication (2FA): Authentication via Google Authenticator using QR codes.
@@ -20,6 +34,24 @@ Designed based on the Human Interface Guidelines - iOS 26 Liquid Glass.
 - Smart Input Validation:
   + OTP/PIN must be exactly 6 digits to proceed with authentication.
 - JWT Stateless Auth: Session management using secure JSON Web Tokens.
+<img width="1910" height="891" alt="image" src="https://github.com/user-attachments/assets/bf20ac21-ded3-4306-9dc8-26330f721de8" />
+Register account sceen with 2FA via Google Authenticator using QR codes.
+<img width="1911" height="888" alt="image" src="https://github.com/user-attachments/assets/5bf1c2ae-9aa8-4220-899d-192223f4a213" />
+"Rejects the request and triggers a validation error popup due to an existing record."
+<img width="1914" height="885" alt="{E6B224FE-5357-4533-A454-B258022AB13F}" src="https://github.com/user-attachments/assets/0565d38c-072f-47a5-9a1a-9ec394232e59" />
+"Supports multiple authentication providers, including Google OAuth 2.0 and standard email/password login."
+<img width="1920" height="1080" alt="{59AC87FB-C4ED-471B-8B1B-A9A98134B53E}" src="https://github.com/user-attachments/assets/192e5cfa-00cb-4977-a0a1-73ff79afc32b" />
+<img width="1896" height="887" alt="image" src="https://github.com/user-attachments/assets/8b0e291a-4cac-46df-8e88-a30e682f3ff4" />
+<img width="1910" height="892" alt="image" src="https://github.com/user-attachments/assets/7aa802f3-b406-400e-8ffb-070bf4e5fa3f" />
+<img width="1913" height="894" alt="{AC96B4CD-83CD-4395-9A88-6BEAF3A0C96A}" src="https://github.com/user-attachments/assets/4c982ee2-d9b7-4bca-a91f-7ea6f3c83021" />
+"Authenticating with administrator privileges."
+<img width="1918" height="893" alt="image" src="https://github.com/user-attachments/assets/784a2ad7-7e19-4ac2-9ae8-092a358979be" />
+<img width="1919" height="893" alt="image" src="https://github.com/user-attachments/assets/5a3b6e73-d6d4-4fe9-bff3-2c7ec324694b" />
+<img width="1918" height="879" alt="image" src="https://github.com/user-attachments/assets/7805f210-7bed-479c-8b4b-ca19abeca3db" />
+<img width="1913" height="885" alt="image" src="https://github.com/user-attachments/assets/96737150-525c-4148-b5fa-1979c464cb45" />
+"Authenticating with standard user privileges."
+
+
 
 ---
 
@@ -46,10 +78,6 @@ Run the command: `npm install`
 
 #### Step 3: Run the Project
 Run the command: `npm run dev` (or `node server.js`)
-
-#### Step 4: Open Ngrok Connection (For Mobile Demo)
-Run the command: `ngrok http 5000`
-Then update the generated link in the `index.html` file.
 
 ---
 
