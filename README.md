@@ -40,7 +40,7 @@ Register account sceen with 2FA via Google Authenticator using QR codes.
 "Rejects the request and triggers a validation error popup due to an existing record."
 <img width="1914" height="885" alt="{E6B224FE-5357-4533-A454-B258022AB13F}" src="https://github.com/user-attachments/assets/0565d38c-072f-47a5-9a1a-9ec394232e59" />
 "Supports multiple authentication providers, including Google OAuth 2.0 and standard email/password login."
-<img width="1920" height="1080" alt="{59AC87FB-C4ED-471B-8B1B-A9A98134B53E}" src="https://github.com/user-attachments/assets/192e5cfa-00cb-4977-a0a1-73ff79afc32b" />
+<img width="1576" height="734" alt="image" src="https://github.com/user-attachments/assets/55328345-cb15-422f-a921-f65fec89e402" />
 <img width="1896" height="887" alt="image" src="https://github.com/user-attachments/assets/8b0e291a-4cac-46df-8e88-a30e682f3ff4" />
 <img width="1910" height="892" alt="image" src="https://github.com/user-attachments/assets/7aa802f3-b406-400e-8ffb-070bf4e5fa3f" />
 <img width="1913" height="894" alt="{AC96B4CD-83CD-4395-9A88-6BEAF3A0C96A}" src="https://github.com/user-attachments/assets/4c982ee2-d9b7-4bca-a91f-7ea6f3c83021" />
