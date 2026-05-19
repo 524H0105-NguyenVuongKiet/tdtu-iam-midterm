@@ -34,22 +34,23 @@ https://drive.google.com/file/d/1wlOIfYXK7rlKWld7lcGTT7N7LDKYeyWi/view?usp=drive
 - Smart Input Validation:
   + OTP/PIN must be exactly 6 digits to proceed with authentication.
 - JWT Stateless Auth: Session management using secure JSON Web Tokens.
-<img width="1910" height="891" alt="image" src="https://github.com/user-attachments/assets/bf20ac21-ded3-4306-9dc8-26330f721de8" />
 Register account sceen with 2FA via Google Authenticator using QR codes.
-<img width="1911" height="888" alt="image" src="https://github.com/user-attachments/assets/5bf1c2ae-9aa8-4220-899d-192223f4a213" />
+<img width="1910" height="891" alt="image" src="https://github.com/user-attachments/assets/bf20ac21-ded3-4306-9dc8-26330f721de8" />
 "Rejects the request and triggers a validation error popup due to an existing record."
-<img width="1914" height="885" alt="{E6B224FE-5357-4533-A454-B258022AB13F}" src="https://github.com/user-attachments/assets/0565d38c-072f-47a5-9a1a-9ec394232e59" />
+<img width="1911" height="888" alt="image" src="https://github.com/user-attachments/assets/5bf1c2ae-9aa8-4220-899d-192223f4a213" />
 "Supports multiple authentication providers, including Google OAuth 2.0 and standard email/password login."
+<img width="1914" height="885" alt="{E6B224FE-5357-4533-A454-B258022AB13F}" src="https://github.com/user-attachments/assets/0565d38c-072f-47a5-9a1a-9ec394232e59" />
+"Authenticating with administrator privileges."
 <img width="1576" height="734" alt="image" src="https://github.com/user-attachments/assets/55328345-cb15-422f-a921-f65fec89e402" />
 <img width="1896" height="887" alt="image" src="https://github.com/user-attachments/assets/8b0e291a-4cac-46df-8e88-a30e682f3ff4" />
 <img width="1910" height="892" alt="image" src="https://github.com/user-attachments/assets/7aa802f3-b406-400e-8ffb-070bf4e5fa3f" />
 <img width="1913" height="894" alt="{AC96B4CD-83CD-4395-9A88-6BEAF3A0C96A}" src="https://github.com/user-attachments/assets/4c982ee2-d9b7-4bca-a91f-7ea6f3c83021" />
-"Authenticating with administrator privileges."
+"Authenticating with standard user privileges."
 <img width="1918" height="893" alt="image" src="https://github.com/user-attachments/assets/784a2ad7-7e19-4ac2-9ae8-092a358979be" />
 <img width="1919" height="893" alt="image" src="https://github.com/user-attachments/assets/5a3b6e73-d6d4-4fe9-bff3-2c7ec324694b" />
 <img width="1918" height="879" alt="image" src="https://github.com/user-attachments/assets/7805f210-7bed-479c-8b4b-ca19abeca3db" />
 <img width="1913" height="885" alt="image" src="https://github.com/user-attachments/assets/96737150-525c-4148-b5fa-1979c464cb45" />
-"Authenticating with standard user privileges."
+
 
 
 
