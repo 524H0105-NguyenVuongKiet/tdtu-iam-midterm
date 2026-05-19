@@ -34,6 +34,8 @@ https://drive.google.com/file/d/1wlOIfYXK7rlKWld7lcGTT7N7LDKYeyWi/view?usp=drive
 - Smart Input Validation:
   + OTP/PIN must be exactly 6 digits to proceed with authentication.
 - JWT Stateless Auth: Session management using secure JSON Web Tokens.
+
+
 Register account sceen with 2FA via Google Authenticator using QR codes.
 <img width="1910" height="891" alt="image" src="https://github.com/user-attachments/assets/bf20ac21-ded3-4306-9dc8-26330f721de8" />
 "Rejects the request and triggers a validation error popup due to an existing record."
